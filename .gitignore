@@ -1,0 +1,23 @@
+# ROS 2 workspace directories
+build/
+install/
+log/
+
+# Python specific
+__pycache__/
+*.pyc
+*.egg-info/
+
+# C++ build artifacts (alguns já estão no build/, mas é uma boa prática)
+*.so
+*.a
+*.o
+
+# Editor/IDE specific files
+.vscode/
+*~
+*.swp
+*.swo
+
+# Arquivos de sistema
+.DS_Store
