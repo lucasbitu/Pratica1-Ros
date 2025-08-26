@@ -1,5 +1,6 @@
 #include <chrono>
 #include <memory>
+#include <functional>
 #include "rclcpp/rclcpp.hpp"
 #include "more_interfaces/msg/address_book.hpp"
 
@@ -11,11 +12,10 @@ AddressBookPublisher()
 : Node("address_book_publisher")
 {
 address_book_publisher_ =
-this->create_publisher<more_interfaces::msg::AddressBook>("addre
-ss_book", 10);
+this->create_publisher<more_interfaces::msg::AddressBook>("address_book", 10);
 
 auto publish_msg = [this]() -> void {
-auto message = more_interfaces::msg::AddressBook()
+auto message = more_interfaces::msg::AddressBook();
 
 message.first_name = "John";
 message.last_name = "Doe";
