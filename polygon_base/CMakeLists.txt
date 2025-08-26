@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(more_interfaces)
+project(polygon_base)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,33 +7,34 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(pluginlib REQUIRED)
 
-find_package(rosidl_default_generators REQUIRED)
-set(msg_files
-"msg/AddressBook.msg"
+add_executable(area_node src/area_node.cpp)
+target_include_directories(area_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(area_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  area_node
+  "pluginlib"
 )
-rosidl_generate_interfaces(${PROJECT_NAME}
-${msg_files}
+
+# install(
+#   DIRECTOR²Y include/
+#   DESTINATION include
+# )
+
+install(
+  DIRECTORY include/
+  DESTINATION include
 )
-ament_export_dependencies(rosidl_default_runtime)
 
-find_package(rclcpp REQUIRED)
-add_executable(publish_address_book
-src/publish_address_book.cpp)
-ament_target_dependencies(publish_address_book rclcpp)
-install(TARGETS
-publish_address_book
-DESTINATION lib/${PROJECT_NAME})
+ament_export_include_directories(
+include
+)
 
-rosidl_get_typesupport_target(cpp_typesupport_target
-${PROJECT_NAME} rosidl_typesupport_cpp)
-target_link_libraries(publish_address_book
-"${cpp_typesupport_target}")
-
-
+install(TARGETS area_node
+  DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
