@@ -46,3 +46,5 @@ sleep 2
 gnome-terminal --title="SLAM TOOLBOX" -- bash -c "$SETUP_CMD; echo '--- LANÇANDO SLAM ---'; ros2 launch robotics_class slam.launch.py; exec bash" &
 
 echo "✅ Todos os terminais foram iniciados com sucesso!"
+
+# ros2 run nav2_map_server map_saver_cli -f ~/workspace/src/robotics_class/maps/class_map
